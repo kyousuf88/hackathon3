@@ -2,4 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Add global styles here */
+/* globals.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+  
 

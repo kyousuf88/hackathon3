@@ -10,10 +10,15 @@ import { useAtomValue } from "jotai";
 import { Badge } from "../ui/badge";
 import { cartAtom } from "@/lib/storage/jotai";
 import Image from "next/image";
+//import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+
+
 
 function NavBar() {
   const [showCart, setShowCart] = useState(false);
   const [menu, setMenu] = useState(false);
+  const router = useRouter();
   const cartValue = useAtomValue(cartAtom);
 
   const links = [
@@ -39,7 +44,7 @@ function NavBar() {
     {
       iconUrl: "/images/user_icon.png",
       alt: "user icon",
-      action: () => console.log("You just clicked on the user icon"),
+      action: () => router.push("/profile"),
     },
     {
       iconUrl: "/images/search_icon.png",
@@ -49,7 +54,7 @@ function NavBar() {
     {
       iconUrl: "/images/heart_icon.png",
       alt: "heart icon",
-      action: () => console.log("You just clicked on the heart icon"),
+      action: () => router.push("/wishlist"),
     },
     {
       iconUrl: "/images/cart_icon.png",

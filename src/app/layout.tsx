@@ -6,6 +6,8 @@ import FooterSection from '@/components/sections/FooterSection'
 import { Toaster } from '@/components/ui/toaster'
 import LoadingIndicator from '@/components/common/LoadingIndicator'
 import { SearchProvider } from '@/context/searchContext'
+import { AuthWrapper } from '@/components/ui/AuthWrapper'
+import { FilterProvider } from '@/context/filterContext'
 
 export const metadata: Metadata = {
   title: 'Furniro Ecommerce',
@@ -23,18 +25,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppin.className} >
-
         <main className="bg-white">
-          <LoadingIndicator />
-          <SearchProvider>
-          <NavBar />
-          {children}
-          <Toaster />
-          </SearchProvider>
-          <div className="mt-[56px]">
-         
-            <FooterSection />
-          </div>
+          <AuthWrapper>
+            <SearchProvider>
+              <FilterProvider>
+              <LoadingIndicator />
+              <NavBar />
+              {children}
+              <Toaster />
+              <div className="mt-[56px]">
+                <FooterSection />
+              </div>
+              </FilterProvider>
+            </SearchProvider>
+          </AuthWrapper>
         </main>
       </body>
     </html>

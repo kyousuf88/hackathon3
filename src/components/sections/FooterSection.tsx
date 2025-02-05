@@ -106,7 +106,7 @@
 import React from "react";
 import { Separator } from "../ui/separator";
 import Link from "next/link";
-import Input from "@/components/ui/input"; // Ensure this is correctly imported
+import {Input} from "@/components/ui/input"; // Ensure this is correctly imported
 import Image from "next/image";
 
 import { useState } from "react";

@@ -67,24 +67,41 @@
 //   );
 // }
 
+// " use client";
+// import React, { useEffect } from "react";
+
+// export default function ProductDetailExtraInfoSection({
+//   product_id,
+// }: {
+//   product_id: string;
+// }) {
+//   useEffect(() => {
+//     if (product_id) {
+//       // Fetch or process data related to the product_id
+//       console.log(`Fetching data for product ID: ${product_id}`);
+//     }
+//   }, [product_id]); // Add `product_id` as a dependency
+
+//   return (
+//     <div>
+//       <p>Product Extra Info Section</p>
+//     </div>
+//   );
+// }
+"use client";
 
 import React, { useEffect } from "react";
 
-export default function ProductDetailExtraInfoSection({
-  product_id,
-}: {
-  product_id: string;
-}) {
+export default function ProductDetailExtraInfoSection({ product_id }: { product_id: string }) {
   useEffect(() => {
-    if (product_id) {
-      // Fetch or process data related to the product_id
-      console.log(`Fetching data for product ID: ${product_id}`);
-    }
-  }, [product_id]); // Add `product_id` as a dependency
+    // Example logic inside useEffect
+    console.log("ProductDetailExtraInfoSection mounted with product_id:", product_id);
+  }, [product_id]);
 
   return (
     <div>
-      <p>Product Extra Info Section</p>
+      <h2>Extra Info Section</h2>
+      <p>Product ID: {product_id}</p>
     </div>
   );
 }

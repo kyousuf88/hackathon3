@@ -56,54 +56,48 @@
 
 
 "use client";
-
-import React, { useEffect, useState } from "react";
 import ProductCard from "@/components/cards/ProductCard";
 import MainButton from "@/components/common/MainButton";
 import { useSearch } from "@/context/searchContext";
 import { client } from "@/sanity/lib/client";
-import { query } from "@/utils/query";
 import { ImportedData } from "@/types";
+import { query } from "@/utils/query";
+import { useEffect, useState } from "react";
 
 function ShopProductSection() {
   const { searchQuery } = useSearch();
-  const [products, setProducts] = useState<ImportedData[]>([]);
-  const [visibleProductsCount, setVisibleProductsCount] = useState<number>(8);
+  const [PRODUCTS, setPRODUCTS] = useState<ImportedData[]>([]);
+  const [skipNumberOfProducts, setSkipNumberOfProducts] = useState<number>(8);
 
-  // Fetch products from Sanity
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchDataFromSanity = async () => {
       try {
-        const data = await client.fetch(query);
-        setProducts(data);
+        const PRODUCTS = await client.fetch(query);
+        setPRODUCTS(PRODUCTS);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.log(error);
       }
-    };
-
-    fetchProducts();
+    }
+    fetchDataFromSanity();
   }, []);
 
-  // Filter products based on the search query
-  const filteredProducts = products.filter((product) =>
+  const filteredProducts = PRODUCTS.filter((product) =>
     product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     product.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
   return (
-   
     <section>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-[32px] mt-[46px]">
-        {filteredProducts.slice(0, visibleProductsCount).map((product, index) => (
-          <ProductCard {...product} key={index} />
+        {filteredProducts.map((item, index) => (
+          index < skipNumberOfProducts && <ProductCard {...item} key={index} />
         ))}
       </div>
       <div className="flex justify-center my-[32px]">
         <MainButton
           action={() => {
-            setVisibleProductsCount(visibleProductsCount + 4);
-            if (visibleProductsCount > 24) {
-              setVisibleProductsCount(8);
+            setSkipNumberOfProducts(skipNumberOfProducts + 4);
+            if (skipNumberOfProducts > 24) {
+              setSkipNumberOfProducts(8);
             }
           }}
           text="Show More"
@@ -115,4 +109,3 @@ function ShopProductSection() {
 }
 
 export default ShopProductSection;
-
